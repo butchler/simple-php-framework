@@ -1,0 +1,32 @@
+#
+# By default, any URLs beginning with /public/... aren't rewritten and are just served normally.
+# All other URLs are rewritten to point to index.php, and send the URL requested as a GET parameter.
+#
+
+AddDefaultCharset UTF-8
+Options -Indexes +FollowSymLinks
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  # You may need to change rewrite base if your code is not in your web server's document root, but is in a subdirectory.
+  #RewriteBase /my-subdirectory
+
+  # Put a whitelist of directories here.
+  # If a user requests a file within a whitelisted directory, and the file exists,
+  # Apache will just send them the file normally and not do anything special.
+  RewriteCond %{REQUEST_FILENAME} -f
+  RewriteRule ^public/.*$ - [L]
+
+  # Feel free to use different directories for your whitelist. For example:
+  # Don't rewrite any URLs that begin with css/, js/, or images/
+  #RewriteCond %{REQUEST_FILENAME} -f
+  #RewriteRule ^css/.*$ - [L]
+  #RewriteCond %{REQUEST_FILENAME} -f
+  #RewriteRule ^js/.*$ - [L]
+  #RewriteCond %{REQUEST_FILENAME} -f
+  #RewriteRule ^images/.*$ - [L]
+
+  # Otherwise, rewrite all URLs to point to index.php
+  # Note that you can still send regular GET parameters to your pages, due to the Query String Append (QSA) option.
+  RewriteRule ^(.*)$ index.php?query=$1 [L,QSA]
+</IfModule>
