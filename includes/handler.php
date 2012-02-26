@@ -30,11 +30,8 @@ class Handler
 
    // Go through the list of patterns and call the first one that matches.
    // Patterns are evaluated in the order they were added.
-   public function handle($query, $config=NULL)
+   public function handle($query, $config)
    {
-      if (!isset($config))
-         global $config;
-
       foreach ($this->patterns as $pattern)
       {
          // Escape #'s within the regular expression, because they are used as the starting and ending delimeters 
@@ -71,10 +68,15 @@ class Handler
    public static function dir($directory)
    {
       return function ($query, $args, $config) use ($directory) {
-         $filename = "$directory/" . trim($query, '/') . '.php';
+         if (empty($query))
+            $filename = 'index';
+         else
+            $filename = trim($query, '/');
 
-         if (file_exists($filename))
-            return include($filename);
+         $file = "$directory/$filename.php";
+
+         if (file_exists($file))
+            return include($file);
          else
             return false;
       };

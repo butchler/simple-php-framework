@@ -20,11 +20,7 @@ Options -Indexes +FollowSymLinks
   # Feel free to use different directories for your whitelist. For example:
   # Don't rewrite any URLs that begin with css/, js/, or images/
   #RewriteCond %{REQUEST_FILENAME} -f
-  #RewriteRule ^css/.*$ - [L]
-  #RewriteCond %{REQUEST_FILENAME} -f
-  #RewriteRule ^js/.*$ - [L]
-  #RewriteCond %{REQUEST_FILENAME} -f
-  #RewriteRule ^images/.*$ - [L]
+  #RewriteRule ^(css|js|images)/.*$ - [L]
 
   # Otherwise, rewrite all URLs to point to index.php
   # Note that you can still send regular GET parameters to your pages, due to the Query String Append (QSA) option.
